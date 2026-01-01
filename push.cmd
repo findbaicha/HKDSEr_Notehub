@@ -5,4 +5,4 @@ git add .
 git commit -m "Update"
 
 # 3. 推送到GitHub仓库
-git push origin master
+git push origin main
