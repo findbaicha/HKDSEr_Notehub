@@ -1,0 +1,1234 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HKDSE 笔记共享中心 | 香港中学文凭考试学习资源平台</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #1abc9c;
+            --light-color: #ecf0f1;
+            --dark-color: #2c3e50;
+            --success-color: #27ae60;
+            --warning-color: #f39c12;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            --border-radius: 8px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft JhengHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent-color);
+        }
+        
+        .logo h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .logo span {
+            color: var(--accent-color);
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 25px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        nav a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.9)), url('https://images.unsplash.com/photo-1497636577773-f1231844b336?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+            margin-bottom: 50px;
+        }
+        
+        .hero h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: white;
+            padding: 14px 28px;
+            border-radius: var(--border-radius);
+            text-decoration: none;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+        
+        .btn:hover {
+            background-color: #16a085;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+            margin-left: 15px;
+        }
+        
+        .btn-secondary:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            position: relative;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background-color: var(--accent-color);
+            bottom: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .subjects {
+            padding: 60px 0;
+        }
+        
+        .subject-filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 40px;
+            max-height: 120px;
+            overflow-y: auto;
+            padding: 10px;
+        }
+        
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .subject-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .subject-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .subject-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .subject-icon {
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 2.5rem;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .subject-content {
+            padding: 25px;
+        }
+        
+        .subject-content h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            font-size: 1.5rem;
+        }
+        
+        .subject-content p {
+            color: #666;
+            margin-bottom: 20px;
+            min-height: 60px;
+        }
+        
+        .note-count {
+            display: inline-block;
+            background-color: #eaf2f8;
+            color: var(--secondary-color);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .upload-section {
+            background-color: white;
+            padding: 60px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .upload-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f8f9fa;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--secondary-color);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .file-upload {
+            border: 2px dashed #ccc;
+            padding: 30px;
+            text-align: center;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+        
+        .file-upload:hover {
+            border-color: var(--secondary-color);
+        }
+        
+        .file-upload i {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 15px;
+        }
+        
+        .recent-notes {
+            padding: 60px 0;
+        }
+        
+        .notes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        
+        .note-card {
+            background-color: white;
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s;
+        }
+        
+        .note-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .note-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .note-category {
+            background-color: var(--accent-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .note-date {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+        
+        .note-body {
+            padding: 25px;
+        }
+        
+        .note-body h4 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .note-author {
+            display: flex;
+            align-items: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #ddd;
+            margin-right: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        
+        .empty-state i {
+            font-size: 4rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+        
+        .empty-state h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #555;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 50px 0 20px;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: var(--accent-color);
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+        
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: var(--success-color);
+            color: white;
+            padding: 15px 25px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+        
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu {
+                display: none;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .mobile-menu.active {
+                display: block;
+            }
+            
+            .hero h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .subject-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .notes-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .upload-form {
+                padding: 25px;
+            }
+            
+            .subject-filters {
+                max-height: 200px;
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 头部导航 -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <i class="fas fa-graduation-cap logo-icon"></i>
+                <h1>HKDSE<span>笔记共享中心</span></h1>
+            </div>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="desktop-menu">
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#subjects">科目笔记</a></li>
+                    <li><a href="#upload">上传笔记</a></li>
+                    <li><a href="#recent">最新笔记</a></li>
+                </ul>
+            </nav>
+            
+            <nav class="mobile-menu" id="mobileMenu">
+                <ul>
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#subjects">科目笔记</a></li>
+                    <li><a href="#upload">上传笔记</a></li>
+                    <li><a href="#recent">最新笔记</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>HKDSE 笔记共享中心</h2>
+            <p>汇集香港中学文凭考试各科优质学习笔记，与全港考生一起高效备考，共同进步。分享你的笔记，帮助他人，也提升自己。</p>
+            <a href="#subjects" class="btn">浏览笔记</a>
+            <a href="#upload" class="btn btn-secondary">上传笔记</a>
+        </div>
+    </section>
+
+    <!-- 科目笔记区域 -->
+    <section class="subjects" id="subjects">
+        <div class="container">
+            <h2 class="section-title">按科目浏览笔记</h2>
+            
+            <div class="subject-filters">
+                <button class="filter-btn active" data-filter="all">全部科目</button>
+                <button class="filter-btn" data-filter="chinese">中国语文</button>
+                <button class="filter-btn" data-filter="english">英国语文</button>
+                <button class="filter-btn" data-filter="math">数学</button>
+                <button class="filter-btn" data-filter="cs">公社</button>
+                <button class="filter-btn" data-filter="m1">M1</button>
+                <button class="filter-btn" data-filter="m2">M2</button>
+                <button class="filter-btn" data-filter="physics">物理</button>
+                <button class="filter-btn" data-filter="chemistry">化学</button>
+                <button class="filter-btn" data-filter="biology">生物</button>
+                <button class="filter-btn" data-filter="economics">经济</button>
+                <button class="filter-btn" data-filter="bafs">BAFS</button>
+                <button class="filter-btn" data-filter="history">历史</button>
+                <button class="filter-btn" data-filter="chi-history">中史</button>
+                <button class="filter-btn" data-filter="geography">地理</button>
+                <button class="filter-btn" data-filter="hm">HM</button>
+                <button class="filter-btn" data-filter="pc">PC</button>
+            </div>
+            
+            <div class="subject-grid" id="subjectGrid">
+                <!-- 科目卡片会通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 上传笔记区域 -->
+    <section class="upload-section" id="upload">
+        <div class="container">
+            <h2 class="section-title">分享你的笔记</h2>
+            
+            <div class="upload-form">
+                <form id="noteUploadForm">
+                    <div class="form-group">
+                        <label for="noteTitle">笔记标题</label>
+                        <input type="text" id="noteTitle" class="form-control" placeholder="例如：中文科文言文常用词汇整理" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="noteSubject">科目</label>
+                        <select id="noteSubject" class="form-control" required>
+                            <option value="">选择科目</option>
+                            <option value="chinese">中国语文</option>
+                            <option value="english">英国语文</option>
+                            <option value="math">数学</option>
+                            <option value="cs">公社</option>
+                            <option value="m1">M1</option>
+                            <option value="m2">M2</option>
+                            <option value="physics">物理</option>
+                            <option value="chemistry">化学</option>
+                            <option value="biology">生物</option>
+                            <option value="economics">经济</option>
+                            <option value="bafs">BAFS</option>
+                            <option value="history">历史</option>
+                            <option value="chi-history">中史</option>
+                            <option value="geography">地理</option>
+                            <option value="hm">HM</option>
+                            <option value="pc">PC</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="noteDescription">笔记描述</label>
+                        <textarea id="noteDescription" class="form-control" placeholder="请描述你的笔记内容、特点和使用建议..." required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>上传文件</label>
+                        <div class="file-upload" id="fileUploadArea">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>点击或拖拽文件到此处上传 (支持PDF, DOC, PPT, 图片格式)</p>
+                            <input type="file" id="fileInput" style="display: none;">
+                        </div>
+                        <div id="fileName" style="margin-top: 10px; font-size: 0.9rem;"></div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="authorName">你的名字（可选）</label>
+                        <input type="text" id="authorName" class="form-control" placeholder="可以填写你的名字或昵称">
+                    </div>
+                    
+                    <button type="submit" class="btn" style="width: 100%; padding: 16px;">分享笔记</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 最新笔记区域 -->
+    <section class="recent-notes" id="recent">
+        <div class="container">
+            <h2 class="section-title">最新上传的笔记</h2>
+            
+            <div class="notes-grid" id="notesGrid">
+                <!-- 最新笔记会通过JavaScript动态生成 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>HKDSE笔记共享中心</h3>
+                    <p>一个由香港学生自发创建的学习资源共享平台，旨在帮助HKDSE考生更高效地备考，通过分享与协作共同进步。</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>快速链接</h3>
+                    <ul class="footer-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#subjects">科目笔记</a></li>
+                        <li><a href="#upload">上传笔记</a></li>
+                        <li><a href="#recent">最新笔记</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>科目</h3>
+                    <ul class="footer-links">
+                        <li><a href="#subjects" data-filter="chinese">中国语文</a></li>
+                        <li><a href="#subjects" data-filter="english">英国语文</a></li>
+                        <li><a href="#subjects" data-filter="math">数学</a></li>
+                        <li><a href="#subjects" data-filter="cs">公社</a></li>
+                        <li><a href="#subjects" data-filter="m1">M1</a></li>
+                        <li><a href="#subjects" data-filter="m2">M2</a></li>
+                        <li><a href="#subjects" data-filter="physics">物理</a></li>
+                        <li><a href="#subjects" data-filter="chemistry">化学</a></li>
+                        <li><a href="#subjects" data-filter="biology">生物</a></li>
+                        <li><a href="#subjects" data-filter="economics">经济</a></li>
+                        <li><a href="#subjects" data-filter="bafs">BAFS</a></li>
+                        <li><a href="#subjects" data-filter="history">历史</a></li>
+                        <li><a href="#subjects" data-filter="chi-history">中史</a></li>
+                        <li><a href="#subjects" data-filter="geography">地理</a></li>
+                        <li><a href="#subjects" data-filter="hm">HM</a></li>
+                        <li><a href="#subjects" data-filter="pc">PC</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>联系与支持</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:support@hkdse-notes.org">电子邮件支持</a></li>
+                        <li><a href="#">使用指南</a></li>
+                        <li><a href="#">常见问题</a></li>
+                        <li><a href="#">贡献指南</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2026 HKDSE笔记共享中心. 本网站仅供学习交流使用，不用于商业用途。</p>
+                <p>此网站托管于GitHub Pages</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 通知提示 -->
+    <div class="toast" id="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">笔记已成功上传！</span>
+    </div>
+
+    <script>
+        // 科目数据 - 使用本地存储或初始数据
+        let subjectsData = [];
+        let notesData = [];
+        
+        // 科目配置
+        const subjectConfig = {
+            'chinese': { name: '中国语文', icon: 'fas fa-book', description: '文言文、阅读理解、写作技巧等', color: '#3498db' },
+            'english': { name: '英国语文', icon: 'fas fa-language', description: 'Reading, Writing, Listening & Integrated Skills', color: '#9b59b6' },
+            'math': { name: '数学', icon: 'fas fa-calculator', description: '代数、微积分、几何与统计', color: '#e74c3c' },
+            'cs': { name: '公社', icon: 'fas fa-users', description: '公民与社会发展科', color: '#1abc9c' },
+            'm1': { name: 'M1', icon: 'fas fa-chart-bar', description: '数学延伸单元一：微积分与统计', color: '#34495e' },
+            'm2': { name: 'M2', icon: 'fas fa-infinity', description: '数学延伸单元二：代数与微积分', color: '#2c3e50' },
+            'physics': { name: '物理', icon: 'fas fa-atom', description: '力学、热学、电学、波动等', color: '#3498db' },
+            'chemistry': { name: '化学', icon: 'fas fa-flask', description: '无机化学、有机化学、分析化学', color: '#e74c3c' },
+            'biology': { name: '生物', icon: 'fas fa-dna', description: '细胞、遗传、生态、人体生物学', color: '#27ae60' },
+            'economics': { name: '经济', icon: 'fas fa-chart-line', description: '微观经济、宏观经济、香港经济', color: '#f39c12' },
+            'bafs': { name: 'BAFS', icon: 'fas fa-file-invoice-dollar', description: '企业、会计与财务概论', color: '#16a085' },
+            'history': { name: '历史', icon: 'fas fa-landmark', description: '世界历史专题研究', color: '#8e44ad' },
+            'chi-history': { name: '中史', icon: 'fas fa-monument', description: '中国历史科', color: '#c0392b' },
+            'geography': { name: '地理', icon: 'fas fa-mountain', description: '自然地理、人文地理、实地考察技巧', color: '#27ae60' },
+            'hm': { name: 'HM', icon: 'fas fa-music', description: '音乐科', color: '#d35400' },
+            'pc': { name: 'PC', icon: 'fas fa-palette', description: '视觉艺术科', color: '#9b59b6' }
+        };
+        
+        // 获取科目信息的安全方法
+        function getSubjectInfo(category) {
+            return subjectConfig[category] || { 
+                name: category, 
+                icon: 'fas fa-book', 
+                description: '暂无描述', 
+                color: '#2c3e50' 
+            };
+        }
+        
+        // 初始化数据
+        function initializeData() {
+            // 尝试从本地存储加载数据
+            const savedSubjects = localStorage.getItem('hkdse_subjects');
+            const savedNotes = localStorage.getItem('hkdse_notes');
+            
+            if (savedSubjects && savedNotes) {
+                subjectsData = JSON.parse(savedSubjects);
+                notesData = JSON.parse(savedNotes);
+            } else {
+                // 初始化科目数据
+                Object.keys(subjectConfig).forEach((key, index) => {
+                    subjectsData.push({
+                        id: index + 1,
+                        name: subjectConfig[key].name,
+                        icon: subjectConfig[key].icon,
+                        category: key,
+                        notes: 0, // 初始为0
+                        description: subjectConfig[key].description
+                    });
+                });
+                
+                // 保存初始数据
+                saveDataToLocalStorage();
+            }
+        }
+        
+        // 保存数据到本地存储
+        function saveDataToLocalStorage() {
+            localStorage.setItem('hkdse_subjects', JSON.stringify(subjectsData));
+            localStorage.setItem('hkdse_notes', JSON.stringify(notesData));
+        }
+        
+        // 更新科目笔记数量
+        function updateSubjectNoteCounts() {
+            // 重置所有科目的笔记数量
+            subjectsData.forEach(subject => {
+                subject.notes = 0;
+            });
+            
+            // 统计每个科目的笔记数量
+            notesData.forEach(note => {
+                const subject = subjectsData.find(s => s.category === note.category);
+                if (subject) {
+                    subject.notes++;
+                }
+            });
+            
+            // 保存更新后的数据
+            saveDataToLocalStorage();
+        }
+        
+        // 显示提示消息
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMessage = document.getElementById('toastMessage');
+            
+            toastMessage.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化数据
+            initializeData();
+            
+            // 更新科目笔记数量
+            updateSubjectNoteCounts();
+            
+            // 初始化移动端菜单
+            const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+            const mobileMenu = document.getElementById('mobileMenu');
+            
+            mobileMenuBtn.addEventListener('click', function() {
+                mobileMenu.classList.toggle('active');
+            });
+            
+            // 关闭移动菜单当点击链接时
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('active');
+                });
+            });
+            
+            // 初始化科目网格
+            renderSubjectGrid('all');
+            
+            // 初始化笔记网格
+            renderNotesGrid();
+            
+            // 初始化科目筛选按钮
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 移除所有按钮的active类
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // 为当前点击的按钮添加active类
+                    this.classList.add('active');
+                    
+                    // 获取筛选条件
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 重新渲染科目网格
+                    renderSubjectGrid(filter);
+                });
+            });
+            
+            // 初始化文件上传区域
+            const fileUploadArea = document.getElementById('fileUploadArea');
+            const fileInput = document.getElementById('fileInput');
+            const fileNameDisplay = document.getElementById('fileName');
+            
+            fileUploadArea.addEventListener('click', function() {
+                fileInput.click();
+            });
+            
+            fileInput.addEventListener('change', function() {
+                if (fileInput.files.length > 0) {
+                    const file = fileInput.files[0];
+                    // 检查文件类型
+                    const allowedTypes = ['application/pdf', 'application/msword', 
+                                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                         'application/vnd.ms-powerpoint',
+                                         'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                                         'image/jpeg', 'image/png', 'image/gif'];
+                    
+                    if (!allowedTypes.includes(file.type)) {
+                        alert('请上传PDF、DOC、PPT或图片格式的文件！');
+                        fileInput.value = '';
+                        fileNameDisplay.innerHTML = '';
+                        return;
+                    }
+                    
+                    // 检查文件大小（限制为10MB）
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert('文件大小不能超过10MB！');
+                        fileInput.value = '';
+                        fileNameDisplay.innerHTML = '';
+                        return;
+                    }
+                    
+                    fileNameDisplay.innerHTML = `<i class="fas fa-file"></i> 已选择文件：${file.name} (${formatFileSize(file.size)})`;
+                    fileNameDisplay.style.color = "var(--success-color)";
+                } else {
+                    fileNameDisplay.innerHTML = '';
+                }
+            });
+            
+            // 拖放文件功能
+            fileUploadArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = 'var(--secondary-color)';
+                this.style.backgroundColor = 'rgba(52, 152, 219, 0.1)';
+            });
+            
+            fileUploadArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#ccc';
+                this.style.backgroundColor = '';
+            });
+            
+            fileUploadArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#ccc';
+                this.style.backgroundColor = '';
+                
+                if (e.dataTransfer.files.length > 0) {
+                    fileInput.files = e.dataTransfer.files;
+                    const file = e.dataTransfer.files[0];
+                    
+                    // 检查文件类型
+                    const allowedTypes = ['application/pdf', 'application/msword', 
+                                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                         'application/vnd.ms-powerpoint',
+                                         'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+                                         'image/jpeg', 'image/png', 'image/gif'];
+                    
+                    if (!allowedTypes.includes(file.type)) {
+                        alert('请上传PDF、DOC、PPT或图片格式的文件！');
+                        fileInput.value = '';
+                        fileNameDisplay.innerHTML = '';
+                        return;
+                    }
+                    
+                    // 检查文件大小
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert('文件大小不能超过10MB！');
+                        fileInput.value = '';
+                        fileNameDisplay.innerHTML = '';
+                        return;
+                    }
+                    
+                    fileNameDisplay.innerHTML = `<i class="fas fa-file"></i> 已选择文件：${file.name} (${formatFileSize(file.size)})`;
+                    fileNameDisplay.style.color = "var(--success-color)";
+                }
+            });
+            
+            // 初始化表单提交
+            const noteUploadForm = document.getElementById('noteUploadForm');
+            noteUploadForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // 获取表单数据
+                const title = document.getElementById('noteTitle').value.trim();
+                const subject = document.getElementById('noteSubject').value;
+                const description = document.getElementById('noteDescription').value.trim();
+                const author = document.getElementById('authorName').value.trim() || '匿名用户';
+                const file = fileInput.files[0];
+                
+                if (!title || !subject || !description) {
+                    alert('请填写所有必填字段！');
+                    return;
+                }
+                
+                if (!file) {
+                    alert('请选择要上传的文件！');
+                    return;
+                }
+                
+                // 创建新笔记
+                const newNote = {
+                    id: notesData.length + 1,
+                    title: title,
+                    category: subject,
+                    date: new Date().toISOString().split('T')[0],
+                    author: author,
+                    description: description.length > 150 ? description.substring(0, 150) + '...' : description,
+                    fullDescription: description,
+                    fileName: file.name,
+                    fileSize: formatFileSize(file.size),
+                    uploadTime: new Date().toLocaleString('zh-HK')
+                };
+                
+                // 添加到笔记数据开头
+                notesData.unshift(newNote);
+                
+                // 更新科目笔记数量
+                updateSubjectNoteCounts();
+                
+                // 保存数据
+                saveDataToLocalStorage();
+                
+                // 显示成功提示
+                showToast('笔记已成功上传！');
+                
+                // 清空表单
+                noteUploadForm.reset();
+                fileNameDisplay.innerHTML = '';
+                
+                // 重新渲染科目网格（更新数量）
+                const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+                renderSubjectGrid(activeFilter);
+                
+                // 重新渲染笔记网格
+                renderNotesGrid();
+                
+                // 滚动到最新笔记区域
+                setTimeout(() => {
+                    document.getElementById('recent').scrollIntoView({ behavior: 'smooth' });
+                }, 500);
+            });
+            
+            // 页脚链接筛选功能
+            const footerLinks = document.querySelectorAll('.footer-links a[data-filter]');
+            footerLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const filter = this.getAttribute('data-filter');
+                    
+                    // 更新筛选按钮状态
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-filter') === filter) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    // 滚动到科目区域
+                    document.getElementById('subjects').scrollIntoView({ behavior: 'smooth' });
+                    // 重新渲染科目网格
+                    renderSubjectGrid(filter);
+                });
+            });
+        });
+        // 渲染科目网格
+        function renderSubjectGrid(filter) {
+            const subjectGrid = document.getElementById('subjectGrid');
+            let filteredSubjects = subjectsData;
+            if (filter !== 'all') {
+                filteredSubjects = subjectsData.filter(subject => subject.category === filter);
+            }
+            // 如果没有任何科目，显示空状态
+            if (filteredSubjects.length === 0) {
+                subjectGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-book-open"></i>
+                        <h3>暂无科目数据</h3>
+                        <p>上传笔记后，相关科目将显示在这里</p>
+                        <a href="#upload" class="btn" style="margin-top: 20px;">上传第一份笔记</a>
+                    </div>
+                `;
+                return;
+            }
+            subjectGrid.innerHTML = '';
+            filteredSubjects.forEach(subject => {
+                const subjectCard = document.createElement('div');
+                subjectCard.className = 'subject-card';
+                subjectCard.setAttribute('data-category', subject.category);
+                subjectCard.style.cursor = 'pointer';
+                // 点击科目卡片查看该科目的所有笔记
+                subjectCard.addEventListener('click', function() {
+                    // 设置筛选按钮
+                    const filterButtons = document.querySelectorAll('.filter-btn');
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        if (btn.getAttribute('data-filter') === subject.category) {
+                            btn.classList.add('active');
+                        }
+                    });
+                    // 渲染该科目的所有笔记
+                    renderSubjectNotes(subject.category);
+                    // 滚动到笔记区域
+                    document.getElementById('recent').scrollIntoView({ behavior: 'smooth' });
+                });
+                const subjectInfo = getSubjectInfo(subject.category);
+                subjectCard.innerHTML = `
+                    <div class="subject-icon" style="background-color: ${subjectInfo.color}">
+                        <i class="${subject.icon}"></i>
+                    </div>
+                    <div class="subject-content">
+                        <h3>${subject.name}</h3>
+                        <p>${subject.description}</p>
+                        <div class="note-count">${subject.notes} 份笔记</div>
+                    </div>
+                `;
+                subjectGrid.appendChild(subjectCard);
+            });
+        }
+        // 渲染特定科目的所有笔记
+        function renderSubjectNotes(category) {
+            const notesGrid = document.getElementById('notesGrid');
+            const sectionTitle = document.querySelector('#recent .section-title');
+            const subjectInfo = getSubjectInfo(category);
+            const categoryName = subjectInfo.name;
+            // 更新标题
+            sectionTitle.textContent = `${categoryName} 笔记`;
+            // 筛选该科目的笔记
+            const filteredNotes = notesData.filter(note => note.category === category);
+            // 如果没有任何笔记，显示空状态
+            if (filteredNotes.length === 0) {
+                notesGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>暂无${categoryName}笔记</h3>
+                        <p>成为第一个分享${categoryName}笔记的人</p>
+                        <a href="#upload" class="btn" style="margin-top: 20px;">上传笔记</a>
+                    </div>
+                `;
+                return;
+            }
+            notesGrid.innerHTML = '';
+            filteredNotes.forEach(note => {
+                const noteCard = document.createElement('div');
+                noteCard.className = 'note-card';
+                noteCard.innerHTML = `
+                    <div class="note-header">
+                        <div class="note-category">${categoryName}</div>
+                        <div class="note-date">${note.date}</div>
+                    </div>
+                    <div class="note-body">
+                        <h4>${note.title}</h4>
+                        <p>${note.description}</p>
+                        <div class="note-author">
+                            <div class="author-avatar">${note.author.charAt(0)}</div>
+                            <div>
+                                <div style="font-weight: 600;">${note.author}</div>
+                                <div style="font-size: 0.9rem; color: #777;">贡献者</div>
+                            </div>
+                        </div>
+                        ${note.fileName ? `<div style="margin-top: 15px; font-size: 0.9rem; color: #666;"><i class="fas fa-file"></i> ${note.fileName} (${note.fileSize})</div>` : ''}
+                    </div>
+                `;               
+                notesGrid.appendChild(noteCard);
+            });
+        }
+        // 渲染笔记网格（全部最新笔记）
+        function renderNotesGrid() {
+            const notesGrid = document.getElementById('notesGrid');
+            const sectionTitle = document.querySelector('#recent .section-title');
+            // 恢复标题
+            sectionTitle.textContent = '最新上传的笔记';
+            // 如果没有任何笔记，显示空状态
+            if (notesData.length === 0) {
+                notesGrid.innerHTML = `
+                    <div class="empty-state" style="grid-column: 1 / -1;">
+                        <i class="fas fa-file-alt"></i>
+                        <h3>暂无笔记</h3>
+                        <p>还没有人分享笔记，成为第一个分享者吧！</p>
+                        <a href="#upload" class="btn" style="margin-top: 20px;">上传第一份笔记</a>
+                    </div>
+                `;
+                return;
+            }            
+            notesGrid.innerHTML = '';
+            // 只显示最新的12份笔记
+            const recentNotes = notesData.slice(0, 9999999999);
+            recentNotes.forEach(note => {
+                const noteCard = document.createElement('div');
+                noteCard.className = 'note-card';
+                const subjectInfo = getSubjectInfo(note.category);
+                const categoryName = subjectInfo.name;
+                noteCard.innerHTML = `
+                    <div class="note-header">
+                        <div class="note-category">${categoryName}</div>
+                        <div class="note-date">${note.date}</div>
+                    </div>
+                    <div class="note-body">
+                        <h4>${note.title}</h4>
+                        <p>${note.description}</p>
+                        <div class="note-author">
+                            <div class="author-avatar">${note.author.charAt(0)}</div>
+                            <div>
+                                <div style="font-weight: 600;">${note.author}</div>
+                                <div style="font-size: 0.9rem; color: #777;">贡献者</div>
+                            </div>
+                        </div>
+                        ${note.fileName ? `<div style="margin-top: 15px; font-size: 0.9rem; color: #666;"><i class="fas fa-file"></i> ${note.fileName} (${note.fileSize})</div>` : ''}
+                    </div>
+                `; 
+                notesGrid.appendChild(noteCard);
+            });
+        }
+        // 格式化文件大小
+        function formatFileSize(bytes) {
+            if (bytes === 0 || !bytes) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+        }
+    </script>
+</body>
+</html>
